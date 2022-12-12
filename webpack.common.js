@@ -1,5 +1,7 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const path = require('path');
+
 const srcDir = path.resolve(__dirname, 'src');
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/template.html',
-      favicon: './src/assets/favicon.png',
+      favicon: `./src/assets/favicon.png`,
     }),
   ],
   module: {
@@ -22,13 +24,9 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|jpeg|gif)$/i,
-        use: {
-          loader: 'file-loader',
-          options: {
-            esModule: false,
-            name: '[name].[hash].[ext]',
-            outputPath: 'imgs',
-          },
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].[hash].[ext]',
         },
       },
     ],
